@@ -1,0 +1,23 @@
+#--- IDE配置 ---
+.idea/
+.vscode/
+
+# --- 操作系统 ---
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/*
+.trae/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.env
+.env.local
+__pycache__/
+/AGENTS.md
+/plan.md
+.VSCodeCounter/*
