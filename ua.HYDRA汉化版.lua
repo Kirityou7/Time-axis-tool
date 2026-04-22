@@ -1,6 +1,6 @@
 -- Manual: http://unanimated.hostfree.pw/ts/scripts-manuals.htm#hydra
 
-script_name="HYDRA-zh_CN"
+script_name="HYDRA汉化版"
 script_description="A multi-headed typesetting beast. Scary as Hell./自用汉化版"
 script_author="unanimated"
 script_url1="http://unanimated.hostfree.pw/ts/hydra.lua"
@@ -585,7 +585,7 @@ end
 --	SPECIAL FUNCTIONS	--
 function special(subs,sel)
   SF=res.spec
-  if res.spec=="back and forth transform" and res.int==0 then
+  if res.spec=="往复变换" and res.int==0 then
 	BAFT={{class="label",label="缺少往复变换的间隔。\n请输入毫秒值。"},
 	{y=1,name="int2",class="intedit",min=0}}
 	pres,rez=ADD(BAFT,{"OK","Cancel"},{ok='OK',close='Cancel'})
@@ -597,12 +597,12 @@ function special(subs,sel)
     transphorm=""
     transphorm=gettags(transphorm)
   end
-  if res.spec=="split line in 3 parts" then
+  if res.spec=="将行分割为3部分" then
 	if res.trin==0 and res.trout==0 then t_error("未提供分割行的时间。\n请使用变换 t1 和 t2 字段。",1) end
 	nsel={} for z,i in ipairs(sel) do table.insert(nsel,i) end
   end
   styleget(subs)
-  if res.spec=="select overlaps" then sel=selover(subs)
+  if res.spec=="选择重叠行" then sel=selover(subs)
   else
     for z=#sel,1,-1 do
         i=sel[z]
@@ -623,7 +623,7 @@ function special(subs,sel)
 		if text==line.text then fail("缺少 \\shad 标签。") end
 	end
 	
-	if res.spec=="move colour tag to first block" then
+	if res.spec=="移动颜色标签到首块" then
 		tags=text:match(STAG) or ""
 		text=text:gsub(STAG,"")
 		klrs=""
@@ -634,13 +634,13 @@ function special(subs,sel)
 		:gsub(ATAG,function(tg) return duplikill(tg) end)
 	end
 	
-	if res.spec=="convert clip <-> iclip" then
+	if res.spec=="clip <-> iclip" then
 		text=text:gsub("\\(i?)clip",function(k) if k=="" then return "\\iclip" else return "\\clip" end end)
 		if text==line.text then fail("未找到 (i)clip。") end
 	end
 	
 	-- CLEAN UP TAGS
-	if res.spec=="clean up tags" then
+	if res.spec=="清理标签" then
 		text=text:gsub("{\\\\k0}",""):gsub(">\\","\\"):gsub("{(\\[^}]-)} *\\N *{(\\[^}]-)}","\\N{%1%2}")
 		text=tagmerge(text)
 		text=text:gsub("({\\[^}]-){(\\[^}]-})","%1%2"):gsub("{.-\\r","{\\r"):gsub("^{\\r([\\}])","{%1")
@@ -661,7 +661,7 @@ function special(subs,sel)
 	end
 	
 	-- SORT TAGS
-	if res.spec=="sort tags in set order" then
+	if res.spec=="按设定顺序排序标签" then
 		text=text:gsub("\\a6","\\an8") :gsub("\\1c","\\c")
 		-- run for each set of tags
 		for tags in text:gmatch(ATAG) do
@@ -691,7 +691,7 @@ function special(subs,sel)
 	end
 	
 	-- CLIP TO DRAWING
-	if res.spec=="convert clip to drawing" and text:match("\\i?clip%(m [%d%a%s%-]+") then
+	if res.spec=="clip转绘图" and text:match("\\i?clip%(m [%d%a%s%-]+") then
 		text=text:gsub("\\(i?)clip%(([%d%.%-]+),([%d%.%-]+),([%d%.%-]+),([%d%.%-]+)%)",function(ii,a,b,c,d) 
 			return string.format("\\"..ii.."clip(m %d %d l %d %d %d %d %d %d)",round(a),round(b),round(c),round(b),round(c),round(d),round(a),round(d)) end) -- rect.2vector
 		text=text:gsub("^({\\[^}]-}).*","%1")
@@ -710,7 +710,7 @@ function special(subs,sel)
 	end
 	
 	-- DRAWING TO CLIP
-	if res.spec=="convert drawing to clip" and text:match("\\p1") then
+	if res.spec=="绘图转clip" and text:match("\\p1") then
 		draw=text:match("}m ([^{]+)")
 		rota=text:match("^{[^}]-\\frz([-%d.]+)")
 		if rota then sr=stylechk(line.style) text=frz_redraw(text,rota,draw,sr) end
@@ -729,7 +729,7 @@ function special(subs,sel)
 	end
 	
 	-- STRIKEOUT TO SELECTED
-	if res.spec=="convert strikeout to selected" then
+	if res.spec=="删除线转选中标签" then
 		selcheck()
 		ST1=transphorm ST2=transphorm:gsub("(\\%d?%a+)[^\\]+","%1")
 		text=text:gsub("\\s1",ST1):gsub("\\s0",ST2)
@@ -738,9 +738,9 @@ function special(subs,sel)
 	end
 	
 	-- CREATE SHADOW FROM CLIP
-	if res.spec=="create shadow from clip" then
+	if res.spec=="从clip创建阴影" then
 		local KX1,KY1,KX2,KY2=text:match("\\i?clip%(m (%-?[%d%.]+) (%-?[%d%.]+) l (%-?[%d%.]+) (%-?[%d%.]+)")
-		if not KX1 then t_error("第 "..i-line0.." 行: 未检测到矢量裁切。\n请使用裁切的两个点来设定阴影方向。)",1) end
+		if not KX1 then t_error("第 "..i-line0.." 行: 未检测到矢量clip。\n请使用clip的两个点来设定阴影方向。)",1) end
 		sr=stylechk(line.style)
 		stag=text:match(STAG) or "{}"
 		sha=stag:match("\\shad([%d%.]+)")
@@ -762,7 +762,7 @@ function special(subs,sel)
 	end
 	
 	-- 3D SHADOW
-	if res.spec=="create 3D effect from shadow" then
+	if res.spec=="从阴影创建3D效果" then
 		if not text:match("\\[xy]shad") then
 			text,c=text:gsub("\\shad([%d.]+)","\\xshad%1\\yshad%1")
 			if c==0 then
@@ -799,7 +799,7 @@ function special(subs,sel)
 	end
 	
 	-- CLIP GRID
-	if res.spec=="chequerboard clip" then
+	if res.spec=="棋盘格clip" then
 		cbklip="\\clip(m 100 100 l 140 100 l 140 180 l 180 180 l 180 140 l 100 140 m 180 100 l 220 100 l 220 180 l 260 180 l 260 140 l 180 140 m 260 100 l 300 100 l 300 180 l 340 180 l 340 140 l 260 140 m 340 100 l 380 100 l 380 180 l 420 180 l 420 140 l 340 140 m 420 100 l 460 100 l 460 180 l 500 180 l 500 140 l 420 140 m 500 100 l 540 100 l 540 180 l 580 180 l 580 140 l 500 140 m 580 100 l 620 100 l 620 180 l 660 180 l 660 140 l 580 140 m 660 100 l 700 100 l 700 180 l 740 180 l 740 140 l 660 140 m 740 100 l 780 100 l 780 180 l 820 180 l 820 140 l 740 140 m 820 100 l 860 100 l 860 180 l 900 180 l 900 140 l 820 140 m 900 100 l 940 100 l 940 180 l 980 180 l 980 140 l 900 140 m 980 100 l 1020 100 l 1020 180 l 1060 180 l 1060 140 l 980 140 m 100 180 l 140 180 l 140 260 l 180 260 l 180 220 l 100 220 m 180 180 l 220 180 l 220 260 l 260 260 l 260 220 l 180 220 m 260 180 l 300 180 l 300 260 l 340 260 l 340 220 l 260 220 m 340 180 l 380 180 l 380 260 l 420 260 l 420 220 l 340 220 m 420 180 l 460 180 l 460 260 l 500 260 l 500 220 l 420 220 m 500 180 l 540 180 l 540 260 l 580 260 l 580 220 l 500 220 m 580 180 l 620 180 l 620 260 l 660 260 l 660 220 l 580 220 m 660 180 l 700 180 l 700 260 l 740 260 l 740 220 l 660 220 m 740 180 l 780 180 l 780 260 l 820 260 l 820 220 l 740 220 m 820 180 l 860 180 l 860 260 l 900 260 l 900 220 l 820 220 m 900 180 l 940 180 l 940 260 l 980 260 l 980 220 l 900 220 m 980 180 l 1020 180 l 1020 260 l 1060 260 l 1060 220 l 980 220 m 100 260 l 140 260 l 140 340 l 180 340 l 180 300 l 100 300 m 180 260 l 220 260 l 220 340 l 260 340 l 260 300 l 180 300 m 260 260 l 300 260 l 300 340 l 340 340 l 340 300 l 260 300 m 340 260 l 380 260 l 380 340 l 420 340 l 420 300 l 340 300 m 420 260 l 460 260 l 460 340 l 500 340 l 500 300 l 420 300 m 500 260 l 540 260 l 540 340 l 580 340 l 580 300 l 500 300 m 580 260 l 620 260 l 620 340 l 660 340 l 660 300 l 580 300 m 660 260 l 700 260 l 700 340 l 740 340 l 740 300 l 660 300 m 740 260 l 780 260 l 780 340 l 820 340 l 820 300 l 740 300 m 820 260 l 860 260 l 860 340 l 900 340 l 900 300 l 820 300 m 900 260 l 940 260 l 940 340 l 980 340 l 980 300 l 900 300 m 980 260 l 1020 260 l 1020 340 l 1060 340 l 1060 300 l 980 300 m 100 340 l 140 340 l 140 420 l 180 420 l 180 380 l 100 380 m 180 340 l 220 340 l 220 420 l 260 420 l 260 380 l 180 380 m 260 340 l 300 340 l 300 420 l 340 420 l 340 380 l 260 380 m 340 340 l 380 340 l 380 420 l 420 420 l 420 380 l 340 380 m 420 340 l 460 340 l 460 420 l 500 420 l 500 380 l 420 380 m 500 340 l 540 340 l 540 420 l 580 420 l 580 380 l 500 380 m 580 340 l 620 340 l 620 420 l 660 420 l 660 380 l 580 380 m 660 340 l 700 340 l 700 420 l 740 420 l 740 380 l 660 380 m 740 340 l 780 340 l 780 420 l 820 420 l 820 380 l 740 380 m 820 340 l 860 340 l 860 420 l 900 420 l 900 380 l 820 380 m 900 340 l 940 340 l 940 420 l 980 420 l 980 380 l 900 380 m 980 340 l 1020 340 l 1020 420 l 1060 420 l 1060 380 l 980 380 m 100 420 l 140 420 l 140 500 l 180 500 l 180 460 l 100 460 m 180 420 l 220 420 l 220 500 l 260 500 l 260 460 l 180 460 m 260 420 l 300 420 l 300 500 l 340 500 l 340 460 l 260 460 m 340 420 l 380 420 l 380 500 l 420 500 l 420 460 l 340 460 m 420 420 l 460 420 l 460 500 l 500 500 l 500 460 l 420 460 m 500 420 l 540 420 l 540 500 l 580 500 l 580 460 l 500 460 m 580 420 l 620 420 l 620 500 l 660 500 l 660 460 l 580 460 m 660 420 l 700 420 l 700 500 l 740 500 l 740 460 l 660 460 m 740 420 l 780 420 l 780 500 l 820 500 l 820 460 l 740 460 m 820 420 l 860 420 l 860 500 l 900 500 l 900 460 l 820 460 m 900 420 l 940 420 l 940 500 l 980 500 l 980 460 l 900 460 m 980 420 l 1020 420 l 1020 500 l 1060 500 l 1060 460 l 980 460 m 100 500 l 140 500 l 140 580 l 180 580 l 180 540 l 100 540 m 180 500 l 220 500 l 220 580 l 260 580 l 260 540 l 180 540 m 260 500 l 300 500 l 300 580 l 340 580 l 340 540 l 260 540 m 340 500 l 380 500 l 380 580 l 420 580 l 420 540 l 340 540 m 420 500 l 460 500 l 460 580 l 500 580 l 500 540 l 420 540 m 500 500 l 540 500 l 540 580 l 580 580 l 580 540 l 500 540 m 580 500 l 620 500 l 620 580 l 660 580 l 660 540 l 580 540 m 660 500 l 700 500 l 700 580 l 740 580 l 740 540 l 660 540 m 740 500 l 780 500 l 780 580 l 820 580 l 820 540 l 740 540 m 820 500 l 860 500 l 860 580 l 900 580 l 900 540 l 820 540 m 900 500 l 940 500 l 940 580 l 980 580 l 980 540 l 900 540 m 980 500 l 1020 500 l 1020 580 l 1060 580 l 1060 540 l 980 540)"
 		text=text:gsub("^({[^}]-)\\i?clip%([^%)]+%)","%1")
 		:gsub("^({\\[^}]-)}","%1"..cbklip.."}")
@@ -807,9 +807,9 @@ function special(subs,sel)
 	end
 	
 	-- size transform from clip
-	if res.spec=="size transform from clip" then
+	if res.spec=="从clip获取尺寸变换" then
 		local klip=text:match("\\i?clip%(m %-?[%d%.]+ %-?[%d%.]+ l %-?[%d%.]+ %-?[%d%.]+ %-?[%d%.]+ %-?[%d%.]+ %-?[%d%.]+ %-?[%d%.]+")
-		if not klip then t_error("第 "..i-line0.." 行: 需要带有 4 个点的矢量裁切。",1) end
+		if not klip then t_error("第 "..i-line0.." 行: 需要带有 4 个点的矢量clip。",1) end
 		local K1x,K1y,K2x,K2y,K3x,K3y,K4x,K4y=klip:match("m (%-?[%d%.]+) (%-?[%d%.]+) l (%-?[%d%.]+) (%-?[%d%.]+) (%-?[%d%.]+) (%-?[%d%.]+) (%-?[%d%.]+) (%-?[%d%.]+)")
 		if defaref and line.style=="Default" then sr=defaref
 		else sr=stylechk(line.style) end
@@ -834,7 +834,7 @@ function special(subs,sel)
 	end
 	
 	-- BACK AND FORTH TRANSFORM
-	if res.spec=="back and forth transform" and res.int>0 then
+	if res.spec=="往复变换" and res.int>0 then
 	    selcheck()
 	    if defaref and line.style=="Default" then sr=defaref
 	    else sr=stylechk(line.style) end
@@ -870,7 +870,7 @@ function special(subs,sel)
 	end
 	
 	-- SPLIT LINE IN 3 PARTS
-	if res.spec=="split line in 3 parts" then
+	if res.spec=="将行分割为3部分" then
 		start=line.start_time
 		endt=line.end_time
 		dur=line.end_time-line.start_time
@@ -921,7 +921,7 @@ function special(subs,sel)
 	end
     end
   end
-  if res.spec=="split line in 3 parts" then sel=nsel end
+  if res.spec=="将行分割为3部分" then sel=nsel end
   summary()
   return sel
 end
@@ -1556,7 +1556,7 @@ For more detailed info, check http://unanimated.hostfree.pw/ts/scripts-manuals.h
 
 每行递增: '2' 表示对于每一行，所有勾选的可适用标签的值都额外增加 2。
 
-渐变: 当前状态是起点。给定的标签是终点。加速对此有效。垂直/水平渐变需要裁切。
+渐变: 当前状态是起点。给定的标签是终点。加速对此有效。垂直/水平渐变需要clip。
 
 居中渐变: '去而复返。' 给定状态将位于中间。最后一行/字符将与第一行/字符相同。
 	更多关于渐变的信息，请查看在线手册。
@@ -1573,7 +1573,7 @@ fscy -> fscx: 同上，但方向相反。
 移动颜色标签到首块: 如果你使用颜色选择器的快捷键，颜色有时会被应用到行中间或末尾，因为那是文本框区域中光标所在的位置。这会将不在行首的颜色标签移动到行首。如果发现多个，它会删除所有颜色标签并使用行中的最后一个。
 如果设置为快捷键会更有用，现在可以这样做。
 
-裁切 <-> 反裁切: 在裁切和反裁切之间切换。 (可设为快捷键。)
+clip <-> iclip: 在clip和iclip之间切换。 (可设为快捷键。)
 
 清理标签: 与脚本清理中的功能相同。
 
@@ -1584,19 +1584,19 @@ fscy -> fscx: 同上，但方向相反。
 
 选择重叠行: 这曾经是 Aegisub 自带的功能。我不知道它是否还在，但有人希望把它加入 HYDRA，所以就在这里了。它会选择与其他行有重叠的行。
 
-裁切转绘图: 使用裁切的坐标创建绘图。
+clip转绘图: 使用clip的坐标创建绘图。
 
-绘图转裁切: 同上，但方向相反。
+绘图转clip: 同上，但方向相反。
 
-从裁切获取尺寸变换: 基于矢量裁切创建 \t(\fscx\fscy)。裁切前两个点之间的距离标记原始尺寸；第 3 和第 4 个点之间的距离标记最终尺寸。这样你可以在理论上无需 Mocha 就能匹配视频中的线性缩放。如果你需要在绘图时看到文本，复制该行可能会有帮助。在视频中选取某个对象，在第一帧用 2 个裁切点匹配其尺寸，在最后一帧再用另外 2 个点匹配。
+从clip获取尺寸变换: 基于矢量clip创建 \t(\fscx\fscy)。clip前两个点之间的距离标记原始尺寸；第 3 和第 4 个点之间的距离标记最终尺寸。这样你可以在理论上无需 Mocha 就能匹配视频中的线性缩放。如果你需要在绘图时看到文本，复制该行可能会有帮助。在视频中选取某个对象，在第一帧用 2 个clip点匹配其尺寸，在最后一帧再用另外 2 个点匹配。
 
 删除线转选中标签: 将 \s1 转换为你选择的标签，并将 \s0 恢复为原始状态。这允许你同时使用多个标签的快速开/关触发器。你在编辑框中将 \s 应用于某个词或文本段落，然后可以将其转换为任何你想要的标签。
 
-棋盘格裁切: 这会创建一个棋盘格裁切。不是很有用，但你可以用上面的工具将其转换为绘图。这也允许你使用缩放工具调整其大小后再转换回来，从而获得各种尺寸。
+棋盘格clip: 这会创建一个棋盘格clip。不是很有用，但你可以用上面的工具将其转换为绘图。这也允许你使用缩放工具调整其大小后再转换回来，从而获得各种尺寸。
 
 shad -> xshad+yshad: 将 \shadX 转换为 \xshadX\yshadX。 (可设为快捷键。)
 
-从裁切创建阴影: 要获得正确的阴影方向，请用矢量裁切在阴影方向上标记 2 个点。距离将使用当前阴影值。阴影使用 \xshad\yshad 创建。 (可设为快捷键。)
+从clip创建阴影: 要获得正确的阴影方向，请用矢量clip在阴影方向上标记 2 个点。距离将使用当前阴影值。阴影使用 \xshad\yshad 创建。 (可设为快捷键。)
 
 从阴影创建3D效果: 这是此菜单中更有用的功能之一。文字和阴影之间的空间将被阴影颜色"填充"。
 
@@ -1677,15 +1677,15 @@ oneline=subs[sel[1]]
 local linetext=nobrea(oneline.text)
 local alfas={"00","10","20","30","40","50","60","70","80","90","A0","B0","C0","D0","E0","F0","F8","FF"}
 local preset_list={"replace \\N","replace {~}","replace {•}","--- presets ---","before last char.","custom pattern","section","every char.","every word","text position","in the middle","1/4 of text","3/4 of text","1/8 of text","3/8 of text","5/8 of text","7/8 of text"}
-local spec_list={"clean up tags","sort tags in set order","fscx -> fscy","fscy -> fscx","convert clip <-> iclip","convert clip to drawing","convert drawing to clip","size transform from clip","create shadow from clip","shad -> xshad+yshad","create 3D effect from shadow","convert strikeout to selected","move colour tag to first block","back and forth transform","chequerboard clip","select overlaps","split line in 3 parts"}
+local spec_list={"清理标签","按设定顺序排序标签","fscx -> fscy","fscy -> fscx","clip <-> iclip","clip转绘图","绘图转clip","从clip获取尺寸变换","从clip创建阴影","shad -> xshad+yshad","从阴影创建3D效果","删除线转选中标签","移动颜色标签到首块","往复变换","棋盘格裁切","选择重叠行","将行分割为3部分"}
 hh1={
 	{x=0,y=0,class="label",label="      HYDRA "..script_version},
 	
 	{x=0,y=1,class="checkbox",name="k1",label="主要颜色:"},
 	{x=1,y=1,class="coloralpha",name="c1"},
-	{x=0,y=2,class="checkbox",name="k3",label="边框(&d):"},
+	{x=0,y=2,class="checkbox",name="k3",label="边框颜色:"},
 	{x=1,y=2,class="coloralpha",name="c3"},
-	{x=0,y=3,class="checkbox",name="k4",label="阴影(&w):"},
+	{x=0,y=3,class="checkbox",name="k4",label="阴影颜色:"},
 	{x=1,y=3,class="coloralpha",name="c4"},
 	{x=0,y=4,class="checkbox",name="k2",label="次要颜色 (2c):"},
 	{x=1,y=4,class="coloralpha",name="c2"},
@@ -1801,7 +1801,7 @@ hh3={
 	{x=4,y=14,width=4,class="dropdown",name="spec",items=spec_list,value="convert clip <-> iclip"},
 	
 	{x=0,y=15,class="label",label="渐变:"},
-	{x=1,y=15,width=2,class="dropdown",name="gtype",items={"vertical","horizontal","by character","by line"},value="by character",
+	{x=1,y=15,width=2,class="dropdown",name="gtype",items={"垂直渐变","水平渐变","按字符渐变","按行渐变"},value="按字符渐变",
 	hint="从当前值渐变到选中值\n垂直/水平渐变需要裁切\n可与加速配合使用"},
 	{x=3,y=15,width=2,class="floatedit",name="stripe",value=2,min=0,hint="垂直/水平渐变的裁切条纹宽度"},
 	{x=5,y=15,class="label",label="像素/条纹"},
@@ -1875,10 +1875,10 @@ hh3={
 	if P=="切换" then
 		for key,val in ipairs(hh_gui) do val.value=res[val.name] end
 		P,res=ADD(hh_gui,B5,{ok='应用',cancel='取消'})
-		if P=="裁切转尺寸(clip2size)" then res.spec="size transform from clip" P="特殊" end
+		if P=="裁切转尺寸(clip2size)" then res.spec="从clip获取尺寸变换" P="特殊" end
 		if P=="shad2xyshad" then res.spec="shad -> xshad+yshad" P="特殊" end
-		if P=="裁切转阴影(clip2shad)" then res.spec="create shadow from clip" P="特殊" end
-		if P=="删除线转标签(strike2tags)" then res.spec="convert strikeout to selected" P="特殊" end
+		if P=="裁切转阴影(clip2shad)" then res.spec="从clip创建阴影" P="特殊" end
+		if P=="删除线转标签(strike2tags)" then res.spec="删除线转选中标签" P="特殊" end
 	end
 	
 	if res.tmode=="normal" then tmode=1 end
@@ -1909,19 +1909,19 @@ end
 
 function col2first(subs,sel)
 res=res or {}
-res.spec="move colour tag to first block"
+res.spec="移动颜色标签到首块"
 spec_macros(subs,sel)
 end
 
 function sortags(subs,sel)
 res=res or {}
-res.spec="sort tags in set order"
+res.spec="按设定顺序排序标签"
 spec_macros(subs,sel)
 end
 
 function i_clip(subs,sel)
 res=res or {}
-res.spec="convert clip <-> iclip"
+res.spec="clip <-> iclip"
 spec_macros(subs,sel)
 end
 
@@ -1933,19 +1933,19 @@ end
 
 function clip2shad(subs,sel)
 res=res or {}
-res.spec="create shadow from clip"
+res.spec="从clip创建阴影"
 spec_macros(subs,sel)
 end
 
 function clip2mask(subs,sel)
 res=res or {}
-res.spec="convert clip to drawing"
+res.spec="clip转绘图"
 spec_macros(subs,sel)
 end
 
 function mask2clip(subs,sel)
 res=res or {}
-res.spec="convert drawing to clip"
+res.spec="绘图转clip"
 spec_macros(subs,sel)
 end
 
