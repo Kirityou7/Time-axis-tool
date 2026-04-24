@@ -3,6 +3,7 @@
  * Home Page: http://noodlefighter.com/label_plus
  * Author: Noodlefighter
  * Released under GPL-2.0 License.
+ * 自用修改版本 v1.01
 */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -9787,6 +9788,7 @@ var LabelPlus;
             textItemRef.autoLeadingAmount = topts.lending;
         }
         artLayerRef.name = text;
+        textItemRef.antiAliasMethod = AntiAlias.SMOOTH;
         textItemRef.contents = text;
         return artLayerRef;
     }
