@@ -1,9 +1,0 @@
-python39.zip
-DLLs
-Lib
-.
-Lib\site-packages
-vapoursynth64\scripts
-
-# Uncomment to run site.main() automatically
-import site

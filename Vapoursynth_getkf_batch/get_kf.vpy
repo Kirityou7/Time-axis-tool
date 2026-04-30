@@ -25,6 +25,10 @@ def gen_kf(input: vs.VideoNode, output="keyframes.txt", mode='wwxd', mode2='aegi
 
 
 input = str(name, encoding = "utf-8") if vs.__api_version__.api_major < 4 else name
-src = core.lsmas.LWLibavSource(input,threads=0)
+# 手动强制加载动态链接库
+core.std.LoadPlugin(path="/opt/homebrew/lib/libffms2.dylib")
+
+# 然后再去调用它
+src = core.ffms2.Source(input)
 last = gen_kf(src, input+".kf.txt")
 src.set_output(0)

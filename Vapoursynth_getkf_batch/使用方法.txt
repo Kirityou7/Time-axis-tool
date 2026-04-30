@@ -1,7 +1,27 @@
-用记事本将 get_kf.bat 的第2行
-set vspipe="E:\翻译\Vapoursynth_getkf_batch\Vapoursynth\VSPipe.exe"
-改为你的 VSPipe.exe 完整路径（在 Vapoursynth 这个目录里面）并保存。
+===== macOS =====
+1. 安装 Vapoursynth：
+   brew install vapoursynth
+   （如已安装可跳过）
 
-鼠标拖住片源的视频文件（mp4/mkv 格式均可）到 get_kf.bat 上松手，看到
-Creating lwi index file xx%
-以及下方每 1000 帧输出一次的数字就是正常开始生成了。
+2. 确认 vspipe 路径：
+   在终端运行 which vspipe，记下输出的路径
+
+3. 打开 get_kf.sh，将第 13 行
+   vspipe="/opt/homebrew/bin/vspipe"
+   改为你上一步得到的路径并保存。
+   （Apple Silicon Mac 通常为 /opt/homebrew/bin/vspipe，
+    Intel Mac 通常为 /usr/local/bin/vspipe，
+    脚本会自动尝试这些常见路径，如果一致则无需修改）
+
+4. 首次使用需给脚本执行权限，在终端运行：
+   chmod +x get_kf.sh的完整路径
+   例如：chmod +x ~/Downloads/Vapoursynth_getkf_batch/get_kf.sh
+
+5. 使用方式（在终端中运行）：
+   ./get_kf.sh 视频文件路径
+   例如：./get_kf.sh /Users/你的用户名/Movies/video.mp4
+   批量处理：./get_kf.sh /Users/你的用户名/Movies/*.mp4
+   多文件：./get_kf.sh video1.mp4 video2.mkv
+
+看到 Creating lwi index file xx% 以及下方每 1000 帧输出一次的数字就是正常开始生成了。
+生成完毕后 .kf.txt 关键帧文件会出现在视频同目录下。
