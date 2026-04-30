@@ -1,0 +1,7 @@
+用记事本将 get_kf.bat 的第2行
+set vspipe="E:\翻译\Vapoursynth_getkf_batch\Vapoursynth\VSPipe.exe"
+改为你的 VSPipe.exe 完整路径（在 Vapoursynth 这个目录里面）并保存。
+
+鼠标拖住片源的视频文件（mp4/mkv 格式均可）到 get_kf.bat 上松手，看到
+Creating lwi index file xx%
+以及下方每 1000 帧输出一次的数字就是正常开始生成了。

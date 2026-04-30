@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Morpho &#8212; VapourSynth-Classic R57 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/agogo.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="OCR" href="ocr.html" />
+    <link rel="prev" title="Miscellaneous Filters" href="misc.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">VapourSynth-Classic R57 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="misc.html" title="Miscellaneous Filters"
+             accesskey="P">previous</a> |
+          <a href="ocr.html" title="OCR"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="morpho">
+<span id="id1"></span><h1>Morpho<a class="headerlink" href="#morpho" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="morpho.Dilate">
+<span class="sig-prename descclassname"><span class="pre">morpho.</span></span><span class="sig-name descname"><span class="pre">Dilate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clip</span> <span class="pre">clip</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">size=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">shape=0</span></span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#morpho.Dilate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="morpho.Erode">
+<span class="sig-prename descclassname"><span class="pre">morpho.</span></span><span class="sig-name descname"><span class="pre">Erode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clip</span> <span class="pre">clip</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">size=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">shape=0</span></span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#morpho.Erode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="morpho.Open">
+<span class="sig-prename descclassname"><span class="pre">morpho.</span></span><span class="sig-name descname"><span class="pre">Open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clip</span> <span class="pre">clip</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">size=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">shape=0</span></span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#morpho.Open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="morpho.Close">
+<span class="sig-prename descclassname"><span class="pre">morpho.</span></span><span class="sig-name descname"><span class="pre">Close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clip</span> <span class="pre">clip</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">size=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">shape=0</span></span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#morpho.Close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="morpho.TopHat">
+<span class="sig-prename descclassname"><span class="pre">morpho.</span></span><span class="sig-name descname"><span class="pre">TopHat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clip</span> <span class="pre">clip</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">size=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">shape=0</span></span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#morpho.TopHat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="morpho.BottomHat">
+<span class="sig-prename descclassname"><span class="pre">morpho.</span></span><span class="sig-name descname"><span class="pre">BottomHat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clip</span> <span class="pre">clip</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">size=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">shape=0</span></span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#morpho.BottomHat" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of simple morphological filters. Useful for working with mask clips.</p>
+</dd></dl>
+
+<p>Parameters (common to all functions):</p>
+<blockquote>
+<div><dl>
+<dt>clip</dt><dd><p>Clip to be processed. Must be 8-16 bits per sample.</p>
+</dd>
+<dt>size</dt><dd><p>Size of the structuring element, in pixels.</p>
+</dd>
+<dt>shape</dt><dd><p>Shape of the structuring element. Possible values are:</p>
+<blockquote>
+<div><p>0: Square
+1: Diamond
+2: Circle</p>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../output.html">Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avisynthcomp.html">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../includedplugins.html">Included Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="avisource.html">AVISource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eedi3.html">EEDI3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imwri.html">ImageMagick Writer-Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html">Miscellaneous Filters</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Morpho</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocr.html">OCR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgvs.html">RGVS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subtext.html">Subtext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vinverse.html">Vinverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vivtc.html">VIVTC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../apireference.html">VapourSynth C API Reference</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="misc.html" title="Miscellaneous Filters"
+              >previous</a> |
+            <a href="ocr.html" title="OCR"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/plugins/morpho.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2021, Fredrik Mellbin.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
